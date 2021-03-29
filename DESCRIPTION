@@ -1,0 +1,31 @@
+Package: DoubletCollection
+Title: Find doublets in scRNA-seq data
+Version: 0.1.0
+Authors@R: 
+    person(given = "Miles",
+           family = "Xi",
+           role = c("aut", "cre"),
+           email = "nxi@ucla.edu",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Use different computational doublet-detection methods to find doublets.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+biocViews:
+Imports: 
+    Seurat,
+    DoubletFinder,
+    scds,
+    reticulate,
+    BiocGenerics,
+    SingleCellExperiment,
+    scDblFinder,
+    scran
+Remotes: 
+    chris-mcginnis-ucsf/DoubletFinder,
+    kostkalab/scds@master
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
