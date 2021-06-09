@@ -1,6 +1,6 @@
 Package: DoubletCollection
 Title: Find doublets in scRNA-seq data
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
     person(given = "Miles",
            family = "Xi",
@@ -22,7 +22,16 @@ Imports:
     BiocGenerics,
     SingleCellExperiment,
     scDblFinder,
-    scran
+    scran,
+    PRROC,
+    ggplot2,
+    ggthemes,
+    scales,
+    MAST,
+    slingshot,
+    mclust,
+    SummarizedExperiment, 
+    gam
 Remotes: 
     chris-mcginnis-ucsf/DoubletFinder,
     kostkalab/scds@master

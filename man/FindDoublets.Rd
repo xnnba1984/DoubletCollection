@@ -2,16 +2,22 @@
 % Please edit documentation in R/FindDoublets.R
 \name{FindDoublets}
 \alias{FindDoublets}
-\title{Obtain doublet scores and doublets}
+\title{Call doublets on one dataset}
 \usage{
-FindDoublets(counts, method, rate = NULL)
+FindDoublets(score.list, rate)
 }
 \arguments{
-\item{rate}{}
+\item{score.list}{A list of doublet scores on one dataset.}
+
+\item{rate}{A user-specified doublet rate (from 0 to 1).}
 }
 \value{
-
+A list of doublet indices for different doublet-detection methods.
 }
 \description{
-Call different computational doublet-detection methods to obtain doublet scores and doublets.
+Call doublets based on doublet scores and a user-specified doublet rate.
+}
+\examples{
+doublet.list <- FindDoublets(score.list = score.list, rate = .1)
+
 }
