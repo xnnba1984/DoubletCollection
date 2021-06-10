@@ -22,7 +22,7 @@ Imports:
     BiocGenerics,
     SingleCellExperiment,
     scDblFinder,
-    scran,
+    scran (== 1.18.0),
     PRROC,
     ggplot2,
     ggthemes,
