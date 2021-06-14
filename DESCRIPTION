@@ -22,7 +22,6 @@ Imports:
     BiocGenerics,
     SingleCellExperiment,
     scDblFinder,
-    scran (== 1.18.0),
     PRROC,
     ggplot2,
     ggthemes,
@@ -34,7 +33,8 @@ Imports:
     gam
 Remotes: 
     chris-mcginnis-ucsf/DoubletFinder,
-    kostkalab/scds@master
+    kostkalab/scds@master,
+    bioc::3.12/scran
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
