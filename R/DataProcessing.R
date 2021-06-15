@@ -16,6 +16,8 @@ if(is.null(path)){
 print(path)
 file.names <- list.files(path)
 data.list <- list()
+data.list$count <- list()
+data.list$label <- list()
 for(file in file.names){
   if(grepl('.rds', file, fixed = T)){
     cat('Read ', file, '\n', sep = '')
