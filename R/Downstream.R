@@ -258,10 +258,20 @@ FindTrajectory <- function(count, label, title){
   }else{
     palette(c("red","grey"))
   }
+
   plot(embedding.pca$PC1, embedding.pca$PC2, col = embedding.pca$type, pch=16, asp = 0,
        main=title, xlab='', ylab='', xaxt='n', yaxt='n')
   lines(SlingshotDataSet(sce), lwd=5, col='black')
-  legend(x="bottomright",legend=c("Doublet","Singlet"),col=c("red","grey"), lwd=1, lty=c(NA,NA),pch=c(19,19), cex=1.3)
+  legend(x="bottomright",legend=c("Doublet","Singlet"),col=c("red","grey"), lwd=1, lty=c(NA,NA),
+         pch=c(19,19), cex=1.3)
+
+  png(paste(title, ' trajectory.png', sep = ''))
+  plot(embedding.pca$PC1, embedding.pca$PC2, col = embedding.pca$type, pch=16, asp = 0,
+       main=title, xlab='', ylab='', xaxt='n', yaxt='n')
+  lines(SlingshotDataSet(sce), lwd=5, col='black')
+  legend(x="bottomright",legend=c("Doublet","Singlet"),col=c("red","grey"), lwd=1, lty=c(NA,NA),
+         pch=c(19,19), cex=1.3)
+  dev.off()
 }
 
 
