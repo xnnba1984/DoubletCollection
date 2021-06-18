@@ -53,7 +53,7 @@ FindParameters <- function(count, label, method, type,
                            n_components=NULL, n_top_var_genes=NULL, n_iters=NULL
                            ){
 
-  cat('Search parameters for', method, '...\n', file = stderr())
+  cat('\nSearch parameters for', method, '...\n', file = stderr())
 
   if(method=='Scrublet'){
     table.result <- expand.grid(n_neighbors=n_neighbors, min_gene_variability_pctl=min_gene_variability_pctl,

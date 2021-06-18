@@ -10,22 +10,22 @@
 #' data.list <- ReadData(path = ".../real_datasets")
 #'
 ReadData <- function(path = NULL){
-if(is.null(path)){
-  path <- getwd()
-}
-print(path)
-file.names <- list.files(path)
-data.list <- list()
-data.list$count <- list()
-data.list$label <- list()
-for(file in file.names){
-  if(grepl('.rds', file, fixed = T)){
-    cat('Read ', file, '\n', sep = '')
-    name <- strsplit(file, ".", fixed = T)[[1]][1]
-    data <- readRDS(paste(path, '/', file, sep = ''))
-    data.list$count[[name]] <- data[[1]]
-    data.list$label[[name]] <- data[[2]]
+  if(is.null(path)){
+    path <- getwd()
   }
+  cat(path, '\n')
+  file.names <- list.files(path)
+  data.list <- list()
+  data.list$count <- list()
+  data.list$label <- list()
+  for(file in file.names){
+    if(grepl('.rds', file, fixed = T)){
+      cat('Read ', file, '\n', sep = '')
+      name <- strsplit(file, ".", fixed = T)[[1]][1]
+      data <- readRDS(paste(path, '/', file, sep = ''))
+      data.list$count[[name]] <- data[[1]]
+      data.list$label[[name]] <- data[[2]]
+    }
 }
 return(data.list)
 }

@@ -3,7 +3,7 @@
 ##########################################################################
 CallDoublets <- function(score, rate){
 
-  cat("Predict doublets...\n", file = stderr())
+  #cat("Predict doublets...\n", file = stderr())
   num <- floor(length(score) * rate)
   threshold <- sort(score, decreasing = T)[num]
   pred <- score > threshold
@@ -95,7 +95,7 @@ CallScrublet <- function(count, n_neighbors=round(0.5*sqrt(dim(count)[2])),
                          min_gene_variability_pctl=85L, n_prin_comps=30L){
 
   if(!reticulate::py_module_available("scrublet")){
-    cat("Install Scrublet...\n", file = stderr())
+    cat("Install Scrublet...\n\n", file = stderr())
     reticulate::py_install("scrublet",pip = T)
   }
 
@@ -147,6 +147,9 @@ CallDoubletDetection <- function(count, n_components=30, n_top_var_genes=10000, 
     reticulate::py_install("doubletdetection", pip = T)
   }
 
+  sink('NUL')
+  sink(stdout(), type = "message")
+
   doubletdetection <- reticulate::import('doubletdetection')
   clf <- doubletdetection$BoostClassifier(n_components=as.integer(n_components),
                                           n_top_var_genes=as.integer(n_top_var_genes),
@@ -155,7 +158,9 @@ CallDoubletDetection <- function(count, n_components=30, n_top_var_genes=10000, 
                                           standard_scaling=TRUE)
   fit <- clf$fit(BiocGenerics::t(count))
   score <- as.vector(fit$doublet_score())
-  cat('\n')
+
+  sink(NULL, type="message")
+  sink()
   return(score)
 }
 
@@ -241,6 +246,7 @@ FindScores <- function(count, methods,
         cat("Execute DoubletDetection...\n", file = stderr())
         score <- CallDoubletDetection(count = count, n_components, n_top_var_genes, n_iters)
         score.list[[method]] <- score
+        cat('\n')
       }
 
       if(method == 'doubletCells'){
@@ -305,7 +311,7 @@ FindScores.All <- function(count.list, methods,
   for(i in 1:length(count.list)){
     count <- count.list[[i]]; dim(count)
     data.name <- names(count.list)[i]; data.name
-    cat('Calculating doublet scores on dataset: ', data.name, '......\n')
+    cat('\nCalculating doublet scores on dataset: ', data.name, '......\n', file = stderr())
     score.list <- FindScores(count = count, methods = methods,
                              n_neighbors, min_gene_variability_pctl, n_prin_comps, nfeatures, PCs, nf, includePCs, max_depth,
                              k, d, ntop.cxds, ntop.bcds, n_components, n_top_var_genes, n_iters)
@@ -363,7 +369,7 @@ FindDoublets.All <- function(score.list.all, rate){
   for(i in 1:length(score.list.all)){
     score.list <- score.list.all[[i]]
     data.name <- names(score.list.all)[i]; data.name
-    cat('Call doublets on dataset:', data.name, '......\n')
+    #cat('\nCall doublets on dataset:', data.name, '......\n')
     doublet.list <- FindDoublets(score.list = score.list, rate = rate)
     doublet.list.all[[data.name]] <- doublet.list
   }
@@ -385,8 +391,9 @@ FindDoublets.All <- function(score.list.all, rate){
 #'
 FindDoublets.All.Rate <- function(score.list.all, rates){
   doublet.list.all.rates <- list()
+  cat('\nCall doublets ...\n',file = stderr())
   for(rate in rates){
-    print(rate)
+    #print(rate)
     doublet.list.all <- FindDoublets.All(score.list.all, rate)
     doublet.list.all.rates[[as.character(rate)]] <- doublet.list.all
   }
@@ -485,7 +492,7 @@ FindAUC.All <- function(score.list.all, label.list, type){
     score.list <- score.list.all[[i]]
     label <- label.list[[i]]; table(label)
     data.name <- names(score.list.all)[i]; data.name
-    cat('Calculating', type, 'on dataset:', data.name, '......\n')
+    cat('\nCalculating', type, 'on dataset:', data.name, '......\n')
     auc.list <- FindAUC(score.list = score.list, label = label, type = type)
     auc.list.all[[data.name]] <- auc.list
   }
@@ -560,7 +567,7 @@ FindACC.All <- function(doublet.list.all, label.list, type){
     doublet.list <- doublet.list.all[[i]]
     label <- label.list[[i]]
     data.name <- names(doublet.list.all)[i]; data.name
-    cat('Calculate', type, 'on dataset:', data.name, '......\n')
+    cat('\nCalculate', type, 'on dataset:', data.name, '......\n')
     acc.list <- FindACC(doublet.list = doublet.list, label = label, type = type)
     acc.list.all[[data.name]] <- acc.list
   }
@@ -630,13 +637,12 @@ RemoveDoublets.all <- function(count.list, label.list, doublet.list.all){
   count.removal.list <- list()
   label.removal.list <- list()
   for(name in names(count.list)){
-    #name <- names(count.list)[1]
-    print(name)
+    #print(name)
     count <- count.list[[name]]; dim(count)
     label <- label.list[[name]]; table(label)
     for(method in names(doublet.list.all[[1]])){
       #method <- names(doublet.list.all[[1]])[1]
-      print(method)
+      #print(method)
       doublets <- doublet.list.all[[name]][[method]]
       data.removal <- RemoveDoublets(count, label, doublets)
       count.removal.list[[name]][[method]] <- data.removal$count
@@ -664,8 +670,8 @@ RemoveDoublets.all <- function(count.list, label.list, doublet.list.all){
 #'
 RemoveDoublets.All.Rate <- function(count.list, label.list, doublet.list.all.rate){
   data.removal.all.rate <- list()
+  cat("Remove identified doublets ...\n",  file = stderr())
   for(rate in names(doublet.list.all.rate)){
-    print(rate)
     doublet.list.all <- doublet.list.all.rate[[rate]]
     data.removal.all <- RemoveDoublets.all(count.list, label.list, doublet.list.all)
     data.removal.all.rate[[rate]] <- data.removal.all

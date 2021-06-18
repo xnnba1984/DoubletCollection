@@ -103,11 +103,12 @@ Plot_Barplot <- function(result, measurement, save=T, path=getwd(), name){
           panel.border = element_rect(colour = "black", fill=NA, size=3)) +
     coord_flip(ylim=c(min(result$value*.995),max(result$value*1.005))) +
     theme(text = element_text(size=20)) +
-    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    guides(fill = guide_legend(reverse=TRUE))
   )
   if(save){
     cat("Save plots to ", path, '\n')
-    ggsave(name, path = path)
+    ggsave(name, path = path, units = 'in', width = 10)
   }
 }
 
@@ -138,7 +139,8 @@ Plot_Barplot_temp <- function(result, title, save=T, path=getwd(), name){
           panel.border = element_rect(colour = "black", fill=NA, size=3)) +
     coord_flip(ylim=c(min(result$value*.995),max(result$value*1.005))) +
     theme(text = element_text(size=20)) +
-    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    guides(fill = guide_legend(reverse=TRUE))
   )
   if(save){
     cat("Save plots to ", path, '\n')

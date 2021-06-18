@@ -10,7 +10,6 @@
 #' @examples
 #'
 Clustering <- function(count){
-  cat("Conducting Louving Clustering...\n", file = stderr())
   rownames(count) <- as.character(1:dim(count)[1])
   colnames(count) <- as.character(1:dim(count)[2])
 
@@ -43,12 +42,10 @@ Clustering <- function(count){
 Clustering.All <- function(count.list.all){
   result.cluster.all <- list()
   for(name in names(count.list.all)){
-    #name <- names(count.list.all)[[1]]; name
-    print(name)
+    cat("\nNumber of clusters: ", name, '\n', file = stderr())
     count.list <- count.list.all[[name]]
     for(method in names(count.list)){
-      #method <- names(count.list)[[1]]; method
-      print(method)
+      cat("Detection method: ", method, '\n', file = stderr())
       count <- count.list[[method]]; dim(count)
       result.cluster <- Clustering(count = count); table(result.cluster)
       result.cluster.all[[name]][[method]] <- result.cluster
@@ -71,9 +68,9 @@ Clustering.All <- function(count.list.all){
 #'
 Clustering.All.Rate <- function(data.removal.all.rate){
   result.cluster.all.rate <- list()
+  cat('\nConducting Louving Clustering on datasets with:\n', file = stderr())
   for(rate in names(data.removal.all.rate)){
-    #rate <- names(data.removal.all.rate)[[1]]; name
-    print(rate)
+    cat('\nDoublet rate ', rate, '\n', file = stderr())
     count.list.all <- data.removal.all.rate[[rate]]$count
     result.cluster.all <- Clustering.All(count.list.all)
     result.cluster.all.rate[[rate]] <- result.cluster.all
@@ -142,13 +139,13 @@ Clustering.Quality <- function(table.cluster, result.cluster.all.rate, data.remo
 #'
 FindDE <- function(data.removal.list, method.de='wilcox'){
 
-  cat("Conduct DE analysis by", method.de, '...\n', file = stderr())
+  cat("\nConduct DE analysis by", method.de, '...\n', file = stderr())
   result.de <- list()
 
   for(method in names(data.removal.list)){
     count <- data.removal.list[[method]]$count; dim(count)
     label.cluster <- data.removal.list[[method]]$label; table(label.cluster)
-    cat(method, '...\n', file = stderr())
+    cat(method, ' Data ...\n', file = stderr())
 
     sink('NUL')
     sink(stdout(), type = "message")
@@ -232,7 +229,8 @@ FindDEACC <- function(DE.list, DE.truth, gene.all){
 #' FindTrajectory(count=count, label=label, title='Contaminated Data')
 #'
 FindTrajectory <- function(count, label, title){
-  cat('Infering cell trajectory by slingshot...\n', file = stderr())
+  cat('\nInfering cell trajectory by slingshot...\n', file = stderr())
+  cat('saveing trajectory plot to current working directory...\n', file = stderr())
   sce <- SingleCellExperiment(assays = List(counts = count))
   FQnorm <- function(count){
     rk <- apply(count,2,rank,ties.method='min')
@@ -298,7 +296,7 @@ FindTrajectory <- function(count, label, title){
 #' de.temp.list <- FindTempDE(count=count, gene.de=gene.de)
 #'
 FindTempDE <- function(count, gene.de){
-  cat('Infering temporal DE genes by slingshot...\n', file = stderr())
+  cat('\nInfering temporal DE genes by slingshot...\n', file = stderr())
   sce <- SingleCellExperiment(assays = List(counts = count))
   FQnorm <- function(count){
     rk <- apply(count,2,rank,ties.method='min')
@@ -361,8 +359,8 @@ FindTempDE <- function(count, gene.de){
 FindTempDE.All <- function(data.list, gene.de){
   de.temp.list.all <- list()
   for(method in names(data.list)){
-    #method <- names(data.list)[1]
-    print(method)
+    cat('\n')
+    cat(method, "Dataset", file = stderr())
     count <- data.list[[method]]$count
     de.temp.list <- FindTempDE(count = count, gene.de = gene.de)
     de.temp.list.all[[method]] <- de.temp.list
@@ -411,7 +409,7 @@ FindDistributedAUC <- function(score.list.all, label.list, type){
 FindDistributedAUC.All <- function(count, label, method, batches, type){
   auc.list.batch <- list()
   for(batch in batches){
-    cat('batch', batch, '\n')
+    cat('\nbatch number', batch, '\n', file = stderr())
     data.split <- SplitData(count=count, label=label, batch=batch)
     score.list.all <- FindScores.All(count.list = data.split$count, methods = method)
     auc.list <- FindDistributedAUC(score.list.all=score.list.all, label.list=data.split$label, type=type)
