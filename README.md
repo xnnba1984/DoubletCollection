@@ -2,6 +2,7 @@
 `DoubletCollection` is an R package that integrates the installation, execution and benchmark of eight cutting-edge computational doublet-detection methods. `DoubletCollection` provides a unified interface to conduct downstream analysis and visualize the result after doublet detection. An detailed description of `DoubletCollection` is available in our [STAR Protocols preprint](https://arxiv.org/abs/2101.08860). A comprehensive description of the methodology to benchmark computational doublet-detection methods is avaiable in our [Cell System paper](https://www.sciencedirect.com/science/article/pii/S2405471220304592?dgcid=author).
 ## Updates
 05/07/2021: Version 1.0.0 released.
+
 06/18/2021: Version 1.1.0 released.
 
 # Installation
