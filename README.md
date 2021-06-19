@@ -50,9 +50,10 @@ We use boxplots to visualize the distributions of AUPRC and AUROC values of ever
 result.auprc <- ListToDataframe(auprc.list.all, 'boxplot')
 result.auroc <- ListToDataframe(auroc.list.all, 'boxplot')
 
-# visualize AUPRC and AUROC by boxplots
-Plot_Boxplot(result.auprc, 'AUPRC')
-Plot_Boxplot(result.auroc, 'AUROC')
+# visualize AUPRC and AUROC by boxplots 
+# save each plot to a file in the current working directory
+Plot_Boxplot(result.auprc, 'AUPRC', save=T, name = 'AUPRC_real.png', path = getwd())
+Plot_Boxplot(result.auroc, 'AUROC', save=T, name = 'AUROC_real.png', path = getwd())
 ```
 ![alternativetext](figures/github1.png)
 # Contact
