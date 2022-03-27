@@ -65,4 +65,4 @@ If you use `DoubletCollection` in your work, please cite
 
 Xi, N.M. and Li, J.J. (2021). Benchmarking computational doublet-detection methods for single-cell RNA sequencing data. Cell Systems 12:1-19. 
 
-Xi, N.M. and Li, J.J. (2021). Protocol for benchmarking computational doublet-detection methods in single-cell RNA sequencing data analysis. arXiv.
+Xi, N.M. and Li, J.J. (2021). Protocol for benchmarking computational doublet-detection methods in single-cell RNA sequencing data analysis. STAR Protocols 2(3):100699.
