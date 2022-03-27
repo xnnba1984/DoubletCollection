@@ -1,5 +1,5 @@
 # DoubletCollection
-`DoubletCollection` is an R package that integrates the installation, execution and benchmark of eight cutting-edge computational doublet-detection methods. `DoubletCollection` provides a unified interface to conduct downstream analysis and visualize the result after doublet detection. An detailed description of `DoubletCollection` is available in our [STAR Protocols preprint](https://arxiv.org/abs/2101.08860). A comprehensive description of the methodology to benchmark computational doublet-detection methods is avaiable in our [Cell System paper](https://www.sciencedirect.com/science/article/pii/S2405471220304592?dgcid=author).
+`DoubletCollection` is an R package that integrates the installation, execution and benchmark of eight cutting-edge computational doublet-detection methods. `DoubletCollection` provides a unified interface to conduct downstream analysis and visualize the result after doublet detection. An detailed description of `DoubletCollection` is available in our [STAR Protocols paper](https://star-protocols.cell.com/protocols/882). A comprehensive description of the methodology to benchmark computational doublet-detection methods is avaiable in our [Cell System paper](https://www.sciencedirect.com/science/article/pii/S2405471220304592?dgcid=author).
 ## Updates
 05/07/2021: Version 1.0.0 released.
 
@@ -19,7 +19,7 @@ devtools::install_github("xnnba1984/DoubletCollection")
 The example `R` code below will use a collection of 16 real scRNA-seq datasets with doublets annotated by experimental techniques. This collection covers a variety of cell types, droplet and gene numbers, doublet rates, and sequencing depths. It represents varying levels of difficulty in detecting doublets from scRNA-seq data. The data collection and preprocessing details are described in our [Cell System paper](https://www.sciencedirect.com/science/article/pii/S2405471220304592?dgcid=author). The datasets are available at Zenodo https://zenodo.org/record/4562782#.YI2lhWf0mbg in the file real_datasets.zip.
 
 # Quick Start
-Below we show example `R` code to perform doublet detection on 16 real datasets by eight doublet-detection methods. We visualize the result to compare the performance of different methods. For the full illustration of how to use `DoubletCollection`, please check our [STAR Protocols preprint](https://arxiv.org/abs/2101.08860).
+Below we show example `R` code to perform doublet detection on 16 real datasets by eight doublet-detection methods. We visualize the result to compare the performance of different methods. For the full illustration of how to use `DoubletCollection`, please check our [STAR Protocols paper](https://star-protocols.cell.com/protocols/882).
 ## Calculate doublet scores
 Every doublet-detection method in `DoubletCollection` outputs a doublet score for each droplet in the dataset. The larger the doublet score is, the more likely the droplet is a doublet. The following R code calculates doublet scores of user-specified methods on 16 real datasets.
 ``` r
