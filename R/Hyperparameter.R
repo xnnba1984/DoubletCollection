@@ -149,7 +149,8 @@ FindParameters <- function(count, label, method, type,
   }
 
   index.max <- which.max(table.result[[type]])
-  return(table.result[index.max,])
+  #return(table.result[index.max,])
+  return(list(table.result[index.max,], table.result)
 }
 
 
