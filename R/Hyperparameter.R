@@ -22,7 +22,7 @@
 #' @param n_top_var_genes Number of highest variance genes to use (DoubletDetection).
 #' @param n_iters Number of fit operations from which to collect p-values (DoubletDetection).
 #'
-#' @return A vector of hyperparameter combinations that maximize "AUPRC" or "AUROC".
+#' @return A list of two elements. The first is a vector of hyperparameter combination that maximizes "AUPRC" or "AUROC". The second is a matrix of all hyperparameter combinations and correponding "AUPRC" or "AUROC". 
 #' @export
 #'
 #' @examples
