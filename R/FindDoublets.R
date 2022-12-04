@@ -340,7 +340,7 @@ FindDoublets <- function(score.list, rate){
   for(i in 1:length(score.list)){
     score <- score.list[[i]]
     method <- names(score.list)[i]
-    if(is.na(score)){
+    if(is.na(score[1])){
       doublet.list[[method]] <- NA
     }else{
       index.doublet <- CallDoublets(score, rate)
@@ -451,7 +451,7 @@ FindAUC <- function(score.list, label, type){
   for(i in 1:length(score.list)){
     score <- score.list[[i]]
     method <- names(score.list)[i]
-    if(is.na(score)){
+    if(is.na(score[1])){
       auc.list[[method]] <- NA
     }else{
       fg <- score[label==1]
